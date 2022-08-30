@@ -1,16 +1,15 @@
-from player import Player
+from player1 import Player
 from ai_computer import AI_Computer
 from human import Human
 
 class Game():
     def __init__(self):
-        self.player = Human('P1')
+        self.player1 = Human('P1')
+        self.player2 = Human('P2')
         self.rounds = 0
-        self.player_2= Human('P2')
-        self.computer = AI_Computer('computer')
         self.current_round = 0
-        self.player_points = 0
-        self.player_2_points = 0
+        self.player1_points = 0
+        self.player2_points = 0
         self.winner = None
     
     def display_welcome(self):
@@ -28,12 +27,12 @@ class Game():
 
     def run_game(self):
         self.display_welcome()
-        result = self.single_or_multiplayer()
+        self.single_or_multiplayer()
         self.choose_rounds()
         while self.current_round < self.rounds:
             self.current_round += 1
-            self.choose_gesture(result)
-            round_winner = self.compare_gesture(result)
+            self.choose_gesture()
+            round_winner = self.compare_gesture()
             self.determine_winner_round(round_winner)
         self.determine_game_won()
         self.display_winner()
@@ -46,127 +45,75 @@ class Game():
     def single_or_multiplayer(self):
         players = input('Choose to play with human or computer: ')
         if players == 'computer':
-            return self.computer
-        if players == 'human':
-            return self.player_2
+            self.player2 = AI_Computer('computer')
 
-    def choose_gesture(self, result):
-        self.player.select()
-        if result == self.computer:
-            self.computer.random_selection()
-        elif result == self.player_2:
-            self.player_2.select()
+    def choose_gesture(self):
+        self.player1.select()
+        self.player2.select()
 
-    def compare_gesture(self, result):
+    def compare_gesture(self):
         '''
-        Comparison of gestures between principal player and player2 as human
+        Comparison of gestures between principal player1 and player2 as human
         '''
-        if result == self.player_2:
-            if self.player.gesture == self.player_2.gesture:
-                return None
-            if self.player.gesture == "Rock" and self.player_2.gesture == "Scissors":
-                return self.player
-            elif self.player.gesture == "Scissors" and self.player_2.gesture == "Paper":
-                return self.player
-            elif self.player.gesture == "Paper" and self.player_2.gesture == "Rock":
-                return self.player
-            elif self.player.gesture == "Rock" and self.player_2.gesture == "Lizard":
-                return self.player
-            elif self.player.gesture == "Lizard" and self.player_2.gesture == "Spock":
-                return self.player             
-            elif self.player.gesture == "Spock" and self.player_2.gesture == "Scissors":
-                return self.player
-            elif self.player.gesture == "Scissors" and self.player_2.gesture == "Lizard":
-                return self.player
-            elif self.player.gesture == "Lizard" and self.player_2.gesture == "Paper":
-                return self.player
-            elif self.player.gesture == "Paper" and self.player_2.gesture == "Spock":
-                return self.player
-            elif self.player.gesture == "Spock" and self.player_2.gesture == "Rock":
-                return self.player
-            elif self.player_2.gesture == "Rock" and self.player.gesture == "Scissors":
-                return self.player_2
-            elif self.player_2.gesture == "Scissors" and self.player.gesture == "Paper":
-                return self.player_2
-            elif self.player_2.gesture == "Paper" and self.player.gesture == "Rock":
-                return self.player_2
-            elif self.player_2.gesture == "Rock" and self.player.gesture == "Lizard":
-                return self.player_2
-            elif self.player_2.gesture == "Lizard" and self.player.gesture == "Spock":
-                return self.player_2             
-            elif self.player_2.gesture == "Spock" and self.player.gesture == "Scissors":
-                return self.player_2
-            elif self.player_2.gesture == "Scissors" and self.player.gesture == "Lizard":
-                return self.player_2
-            elif self.player_2.gesture == "Lizard" and self.player.gesture == "Paper":
-                return self.player_2
-            elif self.player_2.gesture == "Paper" and self.player.gesture == "Spock":
-                return self.player_2
-            elif self.player_2.gesture == "Spock" and self.player.gesture == "Rock":
-                return self.player_2
-        '''
-        Comparison of gestures between principal player and player2 as computer
-        '''       
-        if result == self.computer:
-            if self.player.gesture == self.computer.gesture:
-                return None
-            if self.player.gesture == "Rock" and self.computer.gesture == "Scissors":
-                return self.player
-            elif self.player.gesture == "Scissors" and self.computer.gesture == "Paper":
-                return self.player
-            elif self.player.gesture == "Paper" and self.computer.gesture == "Rock":
-                return self.player
-            elif self.player.gesture == "Rock" and self.computer.gesture == "Lizard":
-                return self.player
-            elif self.player.gesture == "Lizard" and self.computer.gesture == "Spock":
-                return self.player             
-            elif self.player.gesture == "Spock" and self.computer.gesture == "Scissors":
-                return self.player
-            elif self.player.gesture == "Scissors" and self.computer.gesture == "Lizard":
-                return self.player
-            elif self.player.gesture == "Lizard" and self.computer.gesture == "Paper":
-                return self.player
-            elif self.player.gesture == "Paper" and self.computer.gesture == "Spock":
-                return self.player
-            elif self.player.gesture == "Spock" and self.computer.gesture == "Rock":
-                return self.player
-            elif self.computer.gesture == "Rock" and self.player.gesture == "Scissors":
-                return self.player_2
-            elif self.computer.gesture == "Scissors" and self.player.gesture == "Paper":
-                return self.player_2
-            elif self.computer.gesture == "Paper" and self.player.gesture == "Rock":
-                return self.player_2
-            elif self.computer.gesture == "Rock" and self.player.gesture == "Lizard":
-                return self.player_2
-            elif self.computer.gesture == "Lizard" and self.player.gesture == "Spock":
-                return self.player_2             
-            elif self.computer.gesture == "Spock" and self.player.gesture == "Scissors":
-                return self.player_2
-            elif self.computer.gesture == "Scissors" and self.player.gesture == "Lizard":
-                return self.player_2
-            elif self.computer.gesture == "Lizard" and self.player.gesture == "Paper":
-                return self.player_2
-            elif self.computer.gesture == "Paper" and self.player.gesture == "Spock":
-                return self.player_2
-            elif self.computer.gesture == "Spock" and self.player.gesture == "Rock":
-                return self.player_2
-
+        if self.player1.gesture == self.player2.gesture:
+            return None
+        if self.player1.gesture == "Rock" and self.player2.gesture == "Scissors":
+            return self.player1
+        elif self.player1.gesture == "Scissors" and self.player2.gesture == "Paper":
+            return self.player1
+        elif self.player1.gesture == "Paper" and self.player2.gesture == "Rock":
+            return self.player1
+        elif self.player1.gesture == "Rock" and self.player2.gesture == "Lizard":
+            return self.player1
+        elif self.player1.gesture == "Lizard" and self.player2.gesture == "Spock":
+            return self.player1             
+        elif self.player1.gesture == "Spock" and self.player2.gesture == "Scissors":
+            return self.player1
+        elif self.player1.gesture == "Scissors" and self.player2.gesture == "Lizard":
+            return self.player1
+        elif self.player1.gesture == "Lizard" and self.player2.gesture == "Paper":
+            return self.player1
+        elif self.player1.gesture == "Paper" and self.player2.gesture == "Spock":
+            return self.player1
+        elif self.player1.gesture == "Spock" and self.player2.gesture == "Rock":
+            return self.player1
+        elif self.player2.gesture == "Rock" and self.player1.gesture == "Scissors":
+            return self.player2
+        elif self.player2.gesture == "Scissors" and self.player1.gesture == "Paper":
+            return self.player2
+        elif self.player2.gesture == "Paper" and self.player1.gesture == "Rock":
+            return self.player2
+        elif self.player2.gesture == "Rock" and self.player1.gesture == "Lizard":
+            return self.player2
+        elif self.player2.gesture == "Lizard" and self.player1.gesture == "Spock":
+            return self.player2             
+        elif self.player2.gesture == "Spock" and self.player1.gesture == "Scissors":
+            return self.player2
+        elif self.player2.gesture == "Scissors" and self.player1.gesture == "Lizard":
+            return self.player2
+        elif self.player2.gesture == "Lizard" and self.player1.gesture == "Paper":
+            return self.player2
+        elif self.player2.gesture == "Paper" and self.player1.gesture == "Spock":
+            return self.player2
+        elif self.player2.gesture == "Spock" and self.player1.gesture == "Rock":
+            return self.player2
+    
     def determine_winner_round(self, round_winner):
-        if round_winner == self.player:
-            self.player_points += 1
-            print(f'Winner of the round: {self.player.name}')
-        elif round_winner == self.player_2:
-            self.player_2_points += 1
-            print(f'Winner of the round: {self.player_2.name}')
+        if round_winner == self.player1:
+            self.player1_points += 1
+            print(f'Winner of the round: {self.player1.name}')
+        elif round_winner == self.player2:
+            self.player2_points += 1
+            print(f'Winner of the round: {self.player2.name}')
         else:
             print('Tied')
 
     def determine_game_won(self):
         half = self.rounds // 2
-        if self.player_points > half:
-            self.winner = self.player
-        elif self.player_2_points > half:
-            self.winner = self.player_2
+        if self.player1_points > half:
+            self.winner = self.player1
+        elif self.player2_points > half:
+            self.winner = self.player2
 
 
     def display_winner(self):
