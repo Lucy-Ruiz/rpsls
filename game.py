@@ -1,4 +1,3 @@
-from player1 import Player
 from ai_computer import AI_Computer
 from human import Human
 
