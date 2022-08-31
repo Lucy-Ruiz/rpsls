@@ -37,7 +37,6 @@ class Game():
         self.determine_game_won()
         self.display_winner()
 
-
     def choose_rounds(self):
         while self.rounds < 3:
             self.rounds = int(input('Enter the number of rounds, minimum three rounds: '))
@@ -52,7 +51,6 @@ class Game():
         self.player2.select()
 
     def compare_gesture(self):
-
         if self.player1.gesture.gesture_name == self.player2.gesture.gesture_name:
             return None
         elif self.player1.gesture.gesture_name in self.player2.gesture.loses_to:
@@ -60,45 +58,6 @@ class Game():
         else:
             return self.player2
 
-
-        # if self.player1.gesture.gesture_name == self.player2.gesture.gesture_name:
-        #     return None
-
-        # if self.player1.gesture.gesture_name == 'Rock':
-        #     loses = self.player2.gesture.gesture_name in self.player1.gesture.loses_to
-        #     if loses == True:
-        #         return self.player2
-        #     elif loses == False:
-        #         return self.player1
-
-        # elif self.player1.gesture.gesture_name == 'Paper':
-        #     loses = self.player2.gesture.gesture_name in self.player1.gesture.loses_to
-        #     if loses == True:
-        #         return self.player2
-        #     elif loses == False:
-        #         return self.player1
-        
-        # elif self.player1.gesture.gesture_name == 'Scissors':
-        #     loses = self.player2.gesture.gesture_name in self.player1.gesture.loses_to
-        #     if loses == True:
-        #         return self.player2
-        #     elif loses == False:
-        #         return self.player1
-
-        # elif self.player1.gesture.gesture_name == 'Lizard':
-        #     loses = self.player2.gesture.gesture_name in self.player1.gesture.loses_to
-        #     if loses == True:
-        #         return self.player2
-        #     elif loses == False:
-        #         return self.player1
-
-        # elif self.player1.gesture.gesture_name == 'Spock':
-        #     loses = self.player2.gesture.gesture_name in self.player1.gesture.loses_to
-        #     if loses == True:
-        #         return self.player2
-        #     elif loses == False:
-        #         return self.player1
-    
     def determine_winner_round(self, round_winner):
         if round_winner == self.player1:
             self.player1_points += 1
@@ -115,7 +74,6 @@ class Game():
             self.winner = self.player1
         elif self.player2_points > half:
             self.winner = self.player2
-
 
     def display_winner(self):
         if self.winner == None:
