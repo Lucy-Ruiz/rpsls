@@ -6,5 +6,5 @@ class AI_Computer(Player):
     
     def select(self):
         self.gesture = random.choice(self.gesture_options)
-        print(self.gesture)
+        print(self.gesture.gesture_name)
 

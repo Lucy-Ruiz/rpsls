@@ -22,4 +22,13 @@ from game import Game
 game1 = Game()
 game1.run_game()
 
+# from player import Player
+
+# jj = Player("JJ")
+# jj.gesture = jj.gesture_options[0]
+# other_gesture = jj.gesture_options[1]
+
+# loses = other_gesture.gesture_name in jj.gesture.loses_to
+# print(loses)
+
 
